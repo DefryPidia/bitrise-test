@@ -37,7 +37,7 @@ function App() {
 
 	return (
 		<View style={styles.container}>
-			<Text>Edit src/app/index.tsx to edit this screen. Hello World!</Text>
+			<Text>Edit src/app/index.tsx to edit this screen, HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD</Text>
 
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 				<Text>{status}</Text>

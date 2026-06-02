@@ -19,13 +19,18 @@ function App() {
 
 			setStatus('Downloading OTA update...');
 
-			await update.download();
+			const downloadRes = await update.download();
+			console.log('Download result:', downloadRes);
 
 			setStatus('Installing OTA update...');
 
-			await codePush.sync({
-				installMode: codePush.InstallMode.IMMEDIATE,
-			});
+			const result = await codePush.sync(
+				{ installMode: codePush.InstallMode.IMMEDIATE },
+				(status) => console.log('CodePush status:', status),
+				(progress) => console.log('CodePush progress:', progress.receivedBytes, progress.totalBytes)
+			);
+
+			console.log('CodePush result:', result);
 
 			Alert.alert('Updated', 'The app will reload with the latest update.');
 		} catch (error) {
@@ -37,7 +42,7 @@ function App() {
 
 	return (
 		<View style={styles.container}>
-			<Text>Edit src/app/index.tsx to edit this screen, HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD</Text>
+			<Text>Edit src/app/index.tsx to edit this screen</Text>
 
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 				<Text>{status}</Text>

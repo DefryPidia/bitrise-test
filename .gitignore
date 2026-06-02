@@ -41,3 +41,9 @@ example
 # generated native folders
 /ios
 /android
+
+# env files
+.env
+
+# Expo build files
+build/

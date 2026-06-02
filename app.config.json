@@ -8,7 +8,8 @@
     "scheme": "bitrisetest",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.anonymous.bitrisetest"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,6 +34,15 @@
           "android": {
             "image": "./assets/images/splash-icon.png",
             "imageWidth": 76
+          }
+        }
+      ],
+      [
+        "@code-push-next/react-native-code-push/expo",
+        {
+          "android": {
+            "CodePushDeploymentKey": "ANDROID_CODE_PUSH_DEPLOYMENT_KEY",
+            "CodePushServerURL": "https://73cc13aff61edc4f.codepush.bitrise.io"
           }
         }
       ]

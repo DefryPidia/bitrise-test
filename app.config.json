@@ -1,55 +1,55 @@
 {
-	"expo": {
-		"name": "bitrise-test",
-		"slug": "bitrise-test",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
-		"scheme": "bitrisetest",
-		"userInterfaceStyle": "automatic",
-		"ios": {
-			"icon": "./assets/expo.icon",
-			"bundleIdentifier": "com.anonymous.bitrisetest"
-		},
-		"android": {
-			"adaptiveIcon": {
-				"backgroundColor": "#E6F4FE",
-				"foregroundImage": "./assets/images/android-icon-foreground.png",
-				"backgroundImage": "./assets/images/android-icon-background.png",
-				"monochromeImage": "./assets/images/android-icon-monochrome.png"
-			},
-			"predictiveBackGestureEnabled": false,
-			"package": "com.anonymous.bitrisetest"
-		},
-		"web": {
-			"output": "static",
-			"favicon": "./assets/images/favicon.png"
-		},
-		"plugins": [
-			"expo-router",
-			[
-				"expo-splash-screen",
-				{
-					"backgroundColor": "#208AEF",
-					"android": {
-						"image": "./assets/images/splash-icon.png",
-						"imageWidth": 76
-					}
-				}
-			],
-			[
-				"@code-push-next/react-native-code-push/expo",
-				{
-					"android": {
-						"CodePushDeploymentKey": "ANDROID_CODE_PUSH_DEPLOYMENT_KEY",
-						"CodePushServerURL": "https://73cc13aff61edc4f.codepush.bitrise.io"
-					}
-				}
-			]
-		],
-		"experiments": {
-			"typedRoutes": true,
-			"reactCompiler": true
-		}
-	}
+  "expo": {
+    "name": "bitrise-test",
+    "slug": "bitrise-test",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "bitrisetest",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.anonymous.bitrisetest"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.bitrisetest"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 76
+          }
+        }
+      ],
+      [
+        "@code-push-next/react-native-code-push/expo",
+        {
+          "android": {
+            "CodePushDeploymentKey": "KP5_xTfYgHIE4iB0rlcRD2w_l4qlZjM2NDZiMzItNDc1MC00MTFkLTg2NTgtODVkNDEzNGNjZDgw",
+            "CodePushServerURL": "https://73cc13aff61edc4f.codepush.bitrise.io"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
 }

@@ -1,0 +1,42 @@
+name: Android Release
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  assemble-release:
+    name: Assemble Android release APK
+    runs-on: ubuntu-latest
+
+    env:
+      EXPO_NO_GIT_STATUS: "1"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Prebuild Android project
+        run: npx expo prebuild --platform android --clean
+
+      - name: Assemble release APK
+        working-directory: android
+        run: ./gradlew assembleRelease
+
+      - name: Show generated files and byte sizes
+        run: find android/app/build/outputs -type f -printf '%p %s bytes\n'

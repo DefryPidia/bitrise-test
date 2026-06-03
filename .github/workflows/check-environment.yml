@@ -1,0 +1,8 @@
+jobs:
+  assemble-release:
+    runs-on: ubuntu-latest
+    environment: Workflow
+
+    steps:
+      - name: Use environment variable
+        run: echo "${{ vars.TEST }}"

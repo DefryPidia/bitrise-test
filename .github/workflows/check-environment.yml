@@ -1,3 +1,8 @@
+name: Check Environment
+
+on:
+  workflow_dispatch:
+
 jobs:
   assemble-release:
     runs-on: ubuntu-latest

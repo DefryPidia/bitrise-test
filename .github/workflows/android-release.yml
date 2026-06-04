@@ -12,6 +12,7 @@ jobs:
   assemble-release:
     name: Assemble Android release APK
     runs-on: ubuntu-latest
+    environment: Workflow
 
     env:
       EXPO_NO_GIT_STATUS: "1"

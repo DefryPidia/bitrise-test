@@ -30,8 +30,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: '17'
-      
+          java-version: "17"
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
@@ -48,5 +48,47 @@ jobs:
         working-directory: android
         run: ./gradlew assembleRelease
 
-      - name: Show generated files and byte sizes
-        run: find android/app/build/outputs -type f -printf '%p %s bytes\n'
+      - name: Prepare variables
+        run: |
+          filepath="android/app/build/outputs/apk/release/app-release.apk"
+          filename="$(basename "$filepath")"
+          filesize="$(wc -c < "$filepath" | tr -d ' ')"
+          fileuuid="$(uuidgen | tr '[:upper:]' '[:lower:]')"
+
+          echo "APK_FILEPATH=$filepath" >> "$GITHUB_ENV"
+          echo "APK_FILENAME=$filename" >> "$GITHUB_ENV"
+          echo "APK_FILESIZE=$filesize" >> "$GITHUB_ENV"
+          echo "APK_UNIQUE_UUID=$fileuuid" >> "$GITHUB_ENV"
+
+      - name: Upload APK Part 1 - Get Upload URL
+        run: |
+          response="$(
+            curl --fail --silent --show-error \
+              -H "Authorization: ${{ secrets.BITRISE_AUTH_TOKEN }}" \
+              "https://api.bitrise.io/release-management/v1/connected-apps/f3646b32-4750-411d-8658-85d4134ccd80/installable-artifacts/$APK_UNIQUE_UUID/upload-url?file_name=$APK_FILENAME&file_size_bytes=$APK_FILESIZE"
+          )"
+
+          upload_url="$(echo "$response" | jq -e -r '.url')"
+
+          echo "::add-mask::$upload_url"
+          echo "UPLOAD_URL=$upload_url" >> "$GITHUB_ENV"
+
+      - name: Upload APK Part 2 - Upload to bitrise
+        run: curl --fail --silent --show-error -X "PUT" -H "Content-Type: application/vnd.android.package-archive" -H "X-Goog-Content-Length-Range: 0,$APK_FILESIZE" --upload-file $APK_FILENAME "$UPLOAD_URL"
+
+      - name: Upload APK Part 3 - Check upload result
+        run: |
+          response="$(
+            curl --fail --silent --show-error \
+              -H "Authorization: ${{ secrets.BITRISE_AUTH_TOKEN }}" \
+              "https://api.bitrise.io/release-management/v1/connected-apps/f3646b32-4750-411d-8658-85d4134ccd80/installable-artifacts/$APK_UNIQUE_UUID/status"
+          )"
+
+          status="$(echo "$response" | jq -e -r '.status' | tail -n 1)"
+
+          echo "Artifact status: $status"
+
+          if [ "$status" != "processed_valid" ]; then
+            echo "::error::Artifact upload is not processed_valid. Current status: $status. Reason: $status_reason"
+            exit 1
+          fi

@@ -74,7 +74,7 @@ jobs:
           echo "UPLOAD_URL=$upload_url" >> "$GITHUB_ENV"
 
       - name: Upload APK Part 2 - Upload to bitrise
-        run: curl --fail --silent --show-error -X "PUT" -H "Content-Type: application/vnd.android.package-archive" -H "X-Goog-Content-Length-Range: 0,$APK_FILESIZE" --upload-file $APK_FILENAME "$UPLOAD_URL"
+        run: curl -X "PUT" -H "Content-Type: application/vnd.android.package-archive" -H "X-Goog-Content-Length-Range: 0,$APK_FILESIZE" --upload-file $APK_FILENAME "$UPLOAD_URL"
 
       - name: Upload APK Part 3 - Check upload result
         run: |

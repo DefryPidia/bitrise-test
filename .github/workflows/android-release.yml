@@ -64,7 +64,7 @@ jobs:
         run: |
           response="$(
             curl --fail --silent --show-error \
-              -H "Authorization: ${{ secrets.BITRISE_AUTH_TOKEN }}" \
+              -H "Authorization: ${{ vars.BITRISE_AUTH_TOKEN }}" \
               "https://api.bitrise.io/release-management/v1/connected-apps/f3646b32-4750-411d-8658-85d4134ccd80/installable-artifacts/$APK_UNIQUE_UUID/upload-url?file_name=$APK_FILENAME&file_size_bytes=$APK_FILESIZE"
           )"
 
@@ -86,7 +86,7 @@ jobs:
         run: |
           response="$(
             curl --fail --silent --show-error \
-              -H "Authorization: ${{ secrets.BITRISE_AUTH_TOKEN }}" \
+              -H "Authorization: ${{ vars.BITRISE_AUTH_TOKEN }}" \
               "https://api.bitrise.io/release-management/v1/connected-apps/f3646b32-4750-411d-8658-85d4134ccd80/installable-artifacts/$APK_UNIQUE_UUID/status"
           )"
 
